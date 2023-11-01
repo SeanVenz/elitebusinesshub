@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import style from "./style.module.css";
-import { Button } from "@/components";
+import { Button, Cards } from "@/components";
 import { useState } from "react";
 import * as Web3 from "@solana/web3.js";
 import base58 from "bs58";
@@ -12,11 +12,11 @@ import {
   formatDate,
   formatMessage,
   lamports,
-  parseWalletKey,
+  parseString,
 } from "@/app/lib/utils";
 import { getBalance } from "@/app/lib/actions";
 
-function Navbar() {
+function Navbar({ onWalletConnect }: { onWalletConnect: (walletString: string) => void }) {
   const [wallet, setWallet] = useState<null | string>(null);
   const [error, setError] = useState("");
   const [balance, setBalance] = useState(0);
@@ -29,7 +29,7 @@ function Navbar() {
       const walletString = response.publicKey.toString();
 
       const [balanceResult] = await Promise.all([getBalance(walletString)]);
-
+      onWalletConnect(walletString);
       await setWallet(walletString);
       setBalance(balanceResult);
     } catch (error) {
@@ -84,43 +84,31 @@ function Navbar() {
         {error && <p>{error}</p>}
         <div className={style.links_container}>
           <Button onClick={connectAndGetBalance}>
-            {wallet ? parseWalletKey(wallet) : "Connect Wallet"}
+            {wallet ? parseString(wallet) : "Connect Wallet"}
           </Button>
           <Button onClick={sendTransaction}>Send Transactions</Button>
         </div>
       </div>
-      {transactions.length > 0 && (
+      {/* {transactions.length > 0 && (
         <div>
           <h2>Recent Transactions:</h2>
           <ul>
             {transactions.map((transaction, index) => (
               <>
                 <li key={index}>
-                  <p>Fee: {transaction.meta.fee / lamports}</p>
-                  <p>
-                    Recent Blockhash: {transaction?.transaction.recentBlockhash}
-                  </p>
-                  <p>
-                    Signature:{" "}
-                    {decodeSignature(transaction.transaction.signature)}
-                  </p>
-                  <p>
-                    Date: {""}
-                    {formatDate(transaction.blockTime)}
-                  </p>
-                  <p>
-                    Message: {formatMessage(decodeMessage(transaction)).field1}
-                  </p>
-                  <p>
-                    Message: {formatMessage(decodeMessage(transaction)).field2}
-                  </p>
+                  <Card
+                    signature={transaction?.transaction.recentBlockhash}
+                    date = {formatDate(transaction.blockTime)}
+                    messageOne = {formatMessage(decodeMessage(transaction)).field1}
+                    messageTwo = {formatMessage(decodeMessage(transaction)).field1}
+                  />
                 </li>
                 <div style={{ marginBottom: "10px" }}></div>
               </>
             ))}
           </ul>
         </div>
-      )}
+      )} */}
 
       <div className={style.divider}></div>
     </>

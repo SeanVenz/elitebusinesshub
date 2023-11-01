@@ -17,7 +17,7 @@ export const formatDate = (timestamp: number) => {
   return formattedDate;
 };
 
-export const parseWalletKey = (string: string) => {
+export const parseString = (string: string) => {
   return `${string.slice(0, 5)}......${string.slice(-5)}`;
 };
 

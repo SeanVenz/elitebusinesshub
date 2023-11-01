@@ -1,26 +1,21 @@
 "use client";
 import React from "react";
 import style from "./style.module.css";
-import { Button, Cards } from "@/components";
+import { Button } from "@/components";
 import { useState } from "react";
 import * as Web3 from "@solana/web3.js";
 import base58 from "bs58";
-import { useTransactions } from "@/app/lib/useTransactions";
-import {
-  decodeMessage,
-  decodeSignature,
-  formatDate,
-  formatMessage,
-  lamports,
-  parseString,
-} from "@/app/lib/utils";
+import { parseString } from "@/app/lib/utils";
 import { getBalance } from "@/app/lib/actions";
 
-function Navbar({ onWalletConnect }: { onWalletConnect: (walletString: string) => void }) {
+function Navbar({
+  onWalletConnect,
+}: {
+  onWalletConnect: (walletString: string) => void;
+}) {
   const [wallet, setWallet] = useState<null | string>(null);
   const [error, setError] = useState("");
   const [balance, setBalance] = useState(0);
-  const { transactions } = useTransactions(wallet);
 
   const connectAndGetBalance = async () => {
     try {
@@ -84,32 +79,11 @@ function Navbar({ onWalletConnect }: { onWalletConnect: (walletString: string) =
         {error && <p>{error}</p>}
         <div className={style.links_container}>
           <Button onClick={connectAndGetBalance}>
-            {wallet ? parseString(wallet) : "Connect Wallet"}
+            {wallet ? parseString(wallet, 3) : "Connect Wallet"}
           </Button>
           <Button onClick={sendTransaction}>Send Transactions</Button>
         </div>
       </div>
-      {/* {transactions.length > 0 && (
-        <div>
-          <h2>Recent Transactions:</h2>
-          <ul>
-            {transactions.map((transaction, index) => (
-              <>
-                <li key={index}>
-                  <Card
-                    signature={transaction?.transaction.recentBlockhash}
-                    date = {formatDate(transaction.blockTime)}
-                    messageOne = {formatMessage(decodeMessage(transaction)).field1}
-                    messageTwo = {formatMessage(decodeMessage(transaction)).field1}
-                  />
-                </li>
-                <div style={{ marginBottom: "10px" }}></div>
-              </>
-            ))}
-          </ul>
-        </div>
-      )} */}
-
       <div className={style.divider}></div>
     </>
   );

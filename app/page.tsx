@@ -1,4 +1,3 @@
-// pages/index.tsx
 'use client'
 import { useState } from 'react';
 import { Navbar, Cards } from '@/components';

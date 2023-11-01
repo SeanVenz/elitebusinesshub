@@ -17,8 +17,8 @@ export const formatDate = (timestamp: number) => {
   return formattedDate;
 };
 
-export const parseString = (string: string) => {
-  return `${string.slice(0, 5)}......${string.slice(-5)}`;
+export const parseString = (string: string, num: number) => {
+  return `${string.slice(0, num)}......${string.slice(-num)}`;
 };
 
 export const decodeSignature = (signature: any) => {

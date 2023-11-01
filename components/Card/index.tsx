@@ -3,7 +3,13 @@
 import React, { useEffect } from "react";
 import "./index.scss";
 import { useTransactions } from "@/app/lib/useTransactions";
-import { decodeMessage, formatDate, formatMessage } from "@/app/lib/utils";
+import {
+  decodeMessage,
+  decodeSignature,
+  formatDate,
+  formatMessage,
+  parseString,
+} from "@/app/lib/utils";
 
 function Cards({ wallet }: { wallet: string | null }) {
   const { transactions } = useTransactions(wallet);
@@ -12,12 +18,12 @@ function Cards({ wallet }: { wallet: string | null }) {
     <>
       {transactions.length > 0 && (
         <div className="transaction-parent">
-          <h2>Recent Transactions:</h2>
+          <h2>Available Businesses:</h2>
           <ul>
             {transactions.map((transaction, index) => (
               <li key={index}>
                 <Card
-                  signature={transaction?.transaction.recentBlockhash}
+                  signature={decodeSignature(transaction.transaction.signature)}
                   date={formatDate(transaction.blockTime)}
                   messageOne={formatMessage(decodeMessage(transaction)).field1}
                   messageTwo={formatMessage(decodeMessage(transaction)).field1}
@@ -39,7 +45,7 @@ export function Card({
   messageOne,
   messageTwo,
 }: {
-  signature: string;
+  signature: any;
   date: any;
   messageOne: string;
   messageTwo: string;
@@ -52,7 +58,13 @@ export function Card({
       <div className="card__content">
         <p className="card__title">signature</p>
         <div className="descriptions">
-          <p className="card__description">{signature}</p>
+          <a
+            href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}
+            target="_blank"
+            className="card__description"
+          >
+            {parseString(signature, 12)}
+          </a>
           <p className="card__description">{date}</p>
           <p className="card__description">{messageOne}</p>
           <p className="card__description">{messageTwo}</p>

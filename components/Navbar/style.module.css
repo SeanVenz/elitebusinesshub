@@ -10,3 +10,13 @@
 .links_container {
   @apply text-white-500 flex items-center gap-9 font-bold;
 }
+
+.view_transactions:hover{
+  text-decoration: underline;
+}
+
+.open-modal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

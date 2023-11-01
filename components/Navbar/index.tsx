@@ -3,10 +3,9 @@ import React from "react";
 import style from "./style.module.css";
 import { Button } from "@/components";
 import { useState } from "react";
-import * as Web3 from "@solana/web3.js";
-import base58 from "bs58";
 import { parseString } from "@/app/lib/utils";
 import { getBalance } from "@/app/lib/actions";
+import BusinessModal from "../Form";
 
 function Navbar({
   onWalletConnect,
@@ -16,6 +15,11 @@ function Navbar({
   const [wallet, setWallet] = useState<null | string>(null);
   const [error, setError] = useState("");
   const [balance, setBalance] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
   const connectAndGetBalance = async () => {
     try {
@@ -32,44 +36,6 @@ function Navbar({
     }
   };
 
-  const sendTransaction = async () => {
-    try {
-      if (wallet) {
-        const message = { field1: "value1", field2: "value2" };
-        const messageBuffer = Buffer.from(JSON.stringify(message), "utf-8");
-        const connection = new Web3.Connection(Web3.clusterApiUrl("devnet"));
-        const publicKey = new Web3.PublicKey(wallet);
-        const base58DecodedPK = base58.decode(
-          "2Xui4ZSPyGUYMQWnronf6j7jwFLnLup8dbe2dH1fgPrHZ1FArPD274JDcSCBsyVRMNPfvEqPemxzNZe41BLeCiLf"
-        );
-        const signer = Web3.Keypair.fromSecretKey(base58DecodedPK);
-        const programId = new Web3.PublicKey(
-          "G3QrQ1JmrFhRDZyruxp84HH1WWjAmp74PFkFGWSjSYpU"
-        );
-
-        const instruction = new Web3.TransactionInstruction({
-          keys: [
-            {
-              pubkey: publicKey,
-              isSigner: true,
-              isWritable: false,
-            },
-          ],
-          data: messageBuffer,
-          programId: programId,
-        });
-
-        await Web3.sendAndConfirmTransaction(
-          connection,
-          new Web3.Transaction().add(instruction),
-          [signer]
-        );
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <>
       <div className={style.toolbar}>
@@ -79,6 +45,7 @@ function Navbar({
         {error && <p>{error}</p>}
         <div className={style.links_container}>
           <a
+            className={style.view_transactions}
             href="https://explorer.solana.com/address/G3QrQ1JmrFhRDZyruxp84HH1WWjAmp74PFkFGWSjSYpU?cluster=devnet"
             target="_blank"
           >
@@ -87,10 +54,18 @@ function Navbar({
           <Button onClick={connectAndGetBalance}>
             {wallet ? parseString(wallet, 3) : "Connect Wallet"}
           </Button>
-          <Button onClick={sendTransaction}>Send Transactions</Button>
+          <Button onClick={openModal}>Add My Business</Button>
         </div>
       </div>
       <div className={style.divider}></div>
+      <div className="open-modal">
+        {isModalOpen && (
+          <BusinessModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
+      </div>
     </>
   );
 }

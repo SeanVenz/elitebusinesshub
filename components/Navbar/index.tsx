@@ -69,7 +69,6 @@ function Navbar() {
           new Web3.Transaction().add(instruction),
           [signer]
         );
-
       }
     } catch (error) {
       console.log(error);
@@ -109,7 +108,12 @@ function Navbar() {
                     Date: {""}
                     {formatDate(transaction.blockTime)}
                   </p>
-                  <p>Message: {formatMessage(decodeMessage(transaction))}</p>
+                  <p>
+                    Message: {formatMessage(decodeMessage(transaction)).field1}
+                  </p>
+                  <p>
+                    Message: {formatMessage(decodeMessage(transaction)).field2}
+                  </p>
                 </li>
                 <div style={{ marginBottom: "10px" }}></div>
               </>

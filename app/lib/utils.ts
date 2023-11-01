@@ -33,18 +33,15 @@ export const decodeMessage = (transaction: any) => {
   const decodedMessage = textDecoder.decode(
     transaction?.transaction.instructions[0].data
   );
+  console.log(decodeMessage);
   return decodedMessage;
 };
 
 export const formatMessage = (message: any) => {
-    try {
-      const parsedMessage = JSON.parse(message);
-      const formattedMessage = Object.keys(parsedMessage)
-        .map((key) => `${key}: ${parsedMessage[key]}`)
-        .join("\n");
-      return formattedMessage;
-    } catch (error) {
-      // Handle any JSON parsing errors
-      return "Invalid message format";
-    }
-  };
+  try {
+    const parsedMessage = JSON.parse(message);
+    return parsedMessage;
+  } catch (error) {
+    return "Invalid message format";
+  }
+};

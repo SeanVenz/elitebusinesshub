@@ -78,6 +78,12 @@ function Navbar({
         <div className={style.links_container}></div>
         {error && <p>{error}</p>}
         <div className={style.links_container}>
+          <a
+            href="https://explorer.solana.com/address/G3QrQ1JmrFhRDZyruxp84HH1WWjAmp74PFkFGWSjSYpU?cluster=devnet"
+            target="_blank"
+          >
+            View Transactions
+          </a>
           <Button onClick={connectAndGetBalance}>
             {wallet ? parseString(wallet, 3) : "Connect Wallet"}
           </Button>

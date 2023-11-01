@@ -21,7 +21,6 @@ export const useTransactions = (wallet : any) => {
             const transaction = await connection.getConfirmedTransaction(signature.signature);
             transactionsData.push(transaction);
           }
-          console.log(transactions)
           setTransactions(transactionsData);
         } catch (error) {
           setError("Failed to get transactions");

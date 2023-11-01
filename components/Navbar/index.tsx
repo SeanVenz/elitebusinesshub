@@ -63,6 +63,7 @@ function Navbar({
           <BusinessModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
+            wallet = {wallet}
           />
         )}
       </div>

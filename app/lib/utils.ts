@@ -33,7 +33,6 @@ export const decodeMessage = (transaction: any) => {
   const decodedMessage = textDecoder.decode(
     transaction?.transaction.instructions[0].data
   );
-  console.log(decodeMessage);
   return decodedMessage;
 };
 

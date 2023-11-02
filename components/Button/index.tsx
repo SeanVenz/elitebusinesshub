@@ -1,20 +1,16 @@
 import React from "react";
-import style from "./style.module.css";
+import './index.scss'
 
-function Button({ onClick, type, children, outlined, light }: any) {
+function MainButton({ onClick, text }: any) {
   return (
-    <>
+    <div className="main-button">
       <button
-        className={`${style.button} ${
-          outlined ? style.outlined : style.filled
-        } ${light ? style.light : style.default}`}
         onClick={onClick}
-        type={type ?? "button"}
       >
-        {children}
+        <span className="text">{text}</span>
       </button>
-    </>
+    </div>
   );
 }
 
-export default Button;
+export default MainButton;

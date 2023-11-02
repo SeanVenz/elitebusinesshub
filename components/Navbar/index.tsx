@@ -39,7 +39,7 @@ function Navbar({
   return (
     <>
       <div className={style.toolbar}>
-        <h4>SOL: {balance}</h4>
+        <h4>SOL: {balance.toFixed(2)}</h4>
 
         <div className={style.links_container}></div>
         {error && <p>{error}</p>}
@@ -51,10 +51,10 @@ function Navbar({
           >
             View Transactions
           </a>
-          <Button onClick={connectAndGetBalance}>
-            {wallet ? parseString(wallet, 3) : "Connect Wallet"}
+          <Button onClick={connectAndGetBalance} text = {wallet ? parseString(wallet, 3) : "Connect Wallet"}>
+            
           </Button>
-          <Button onClick={openModal}>Add My Business</Button>
+          <Button onClick={openModal} text = {"Add My Business"}></Button>
         </div>
       </div>
       <div className={style.divider}></div>

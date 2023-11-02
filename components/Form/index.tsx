@@ -25,7 +25,7 @@ function BusinessModal({
 
   return (
     <div className="modal">
-      <div className={`modal-content ${isOpen ? '' : 'close'}`} onClick={onClose}>
+      <div className={`modal-content ${isOpen ? '' : 'close'}`}>
         <div className="form-container">
           <form className="form" onSubmit={(e) => sendTransaction(e, wallet, image, businessName, businessDescription)}>
             <div className="form-group">

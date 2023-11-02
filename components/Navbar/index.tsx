@@ -31,6 +31,7 @@ function Navbar({
       onWalletConnect(walletString);
       await setWallet(walletString);
       setBalance(balanceResult);
+      console.log("connecting");
     } catch (error) {
       setError("No wallet");
     }
@@ -51,7 +52,7 @@ function Navbar({
           >
             View Transactions
           </a>
-          <Button onClick={connectAndGetBalance} text = {wallet ? parseString(wallet, 3) : "Connect Wallet"}>
+          <Button disabled={wallet !== null} onClick={connectAndGetBalance} text = {wallet ? parseString(wallet, 3) : "Connect Wallet"}>
             
           </Button>
           <Button onClick={openModal} text = {"Add My Business"}></Button>

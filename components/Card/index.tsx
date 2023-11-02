@@ -12,6 +12,7 @@ import {
 } from "@/app/lib/utils";
 import defaultImg from "../../public/business.jpeg";
 import Image from "next/image";
+import { playFair } from "@/app/lib/fonts";
 
 function Cards({ wallet }: { wallet: string | null }) {
   const { transactions } = useTransactions(wallet);
@@ -57,14 +58,16 @@ export function Card({
 }) {
   return (
     <div className="card">
-      {imgLink ? (
-        <img src={imgLink} alt="img" />
-      ) : (
-        <Image src={defaultImg} alt="img" width={300} height={200} />
-      )}
-      <div className="card__content">
-        <p className="card__title">signature</p>
+        {imgLink ? (
+          <img src={imgLink} alt="img" />
+        ) : (
+          <Image src={defaultImg} alt="img" width={300} height={200} />
+        )}
+      <div className="card__content"> 
+        <h4 className={`${playFair.className}`}>{messageOne}</h4>
         <div className="descriptions">
+          <p className="card__description">{date}</p>
+          <p className="card__description">{messageTwo}</p>
           <a
             href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}
             target="_blank"
@@ -72,9 +75,6 @@ export function Card({
           >
             {parseString(signature, 12)}
           </a>
-          <p className="card__description">{date}</p>
-          <p className="card__description">{messageOne}</p>
-          <p className="card__description">{messageTwo}</p>
         </div>
       </div>
     </div>

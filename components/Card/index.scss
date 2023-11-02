@@ -1,7 +1,7 @@
 .card {
   position: relative;
-  width: 300px;
-  height: 200px;
+  width: 500px;
+  height: 400px;
   background-color: #f2f2f2;
   border-radius: 10px;
   display: flex;
@@ -9,13 +9,7 @@
   justify-content: center;
   overflow: hidden;
   perspective: 1000px;
-  box-shadow: 0 0 0 5px #ffffff80;
-  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.card svg {
-  width: 48px;
-  fill: #333;
+  box-shadow: 0 0 0 5px #ffffff80; 
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -49,15 +43,28 @@
   font-weight: 700;
 }
 
-.card:hover svg {
-  scale: 0;
-}
-
 .card__description {
-  margin: 10px 0 0;
   font-size: 14px;
   color: #777;
   line-height: 1.4;
+}
+
+.card{
+  h4{
+    color: black;
+    text-transform: capitalize;
+  }
+  img{
+    width: 100%;
+    height: auto;
+    object-fit: fill;
+  }
+  .card__content{
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+  }
 }
 
 .transaction-parent {

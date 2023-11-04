@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React from "react";
 import "./index.scss";
 import { useTransactions } from "@/app/lib/useTransactions";
 import {
@@ -10,9 +10,8 @@ import {
   formatMessage,
   parseString,
 } from "@/app/lib/utils";
-import defaultImg from "../../public/business.jpeg";
-import Image from "next/image";
 import { playFair } from "@/app/lib/fonts";
+import ImagePreloader from "../Preloader";
 
 function Cards({ wallet }: { wallet: string | null }) {
   const { transactions, error, isLoading } = useTransactions(wallet);
@@ -62,16 +61,12 @@ export function Card({
 }) {
   return (
     <div className="card">
-      {imgLink ? (
-        <img src={imgLink} alt={messageOne} />
-      ) : (
-        <Image
-          src={defaultImg}
-          alt="Business Default"
-          width={300}
-          height={200}
-        />
-      )}
+      <ImagePreloader
+        src={imgLink}
+        alt={messageOne || "Business Default"}
+        width={500}
+        height={400}
+      />
       <div className="card__content">
         <h4 className={`${playFair.className}`}>{messageOne}</h4>
         <div className="descriptions">
@@ -93,7 +88,7 @@ export function Card({
 export function CardSkeleton() {
   return (
     <div className="card-skeleton-container">
-      {Array(6)
+      {Array(7)
         .fill(null)
         .map((_, index) => (
           <div className="card-skeleton" key={index}>

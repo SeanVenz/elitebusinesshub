@@ -7,7 +7,6 @@ import { parseString } from "@/app/lib/utils";
 import { getBalance } from "@/app/lib/actions";
 import BusinessModal from "../Form";
 import { playFair } from "@/app/lib/fonts";
-import { ButtonSkeleton } from "../Button";
 
 function Navbar({
   onWalletConnect,
@@ -33,7 +32,6 @@ function Navbar({
       onWalletConnect(walletString);
       await setWallet(walletString);
       setBalance(balanceResult);
-      console.log("connecting");
     } catch (error) {
       setError("No wallet");
     }
@@ -65,7 +63,7 @@ function Navbar({
           {wallet && (
             <MainButton
               onClick={openModal}
-              text={"Add My Business"}  
+              text={"Add My Business"}
             ></MainButton>
           )}
         </div>

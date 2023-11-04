@@ -63,16 +63,19 @@
   .card__content {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
     align-items: center;
   }
 }
-
 .transaction-parent {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  h2{
+    padding: 10px;
+  }
+  
   ul {
     display: flex;
     flex-direction: row;
@@ -111,22 +114,27 @@
     margin-top: 1%;
 
     &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        transform: translateX(-100%);
-        animation: shimmer 2s infinite;
-        background: linear-gradient(to right, transparent, white 60%, transparent);
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      animation: shimmer 2s infinite;
+      background: linear-gradient(
+        to right,
+        transparent,
+        white 60%,
+        transparent
+      );
     }
-}
+  }
   @keyframes shimmer {
     0% {
-        transform: translateX(-100%);
+      transform: translateX(-100%);
     }
     100% {
-        transform: translateX(100%);
+      transform: translateX(100%);
     }
-}
+  }
 
   .card-skeleton-header {
     background: #e0e0e0;

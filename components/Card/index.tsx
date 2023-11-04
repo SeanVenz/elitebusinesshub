@@ -24,7 +24,7 @@ function Cards({ wallet }: { wallet: string | null }) {
     <>
       {transactions.length > 0 && (
         <div className="transaction-parent">
-          <h2>Available Businesses:</h2>
+          <h2 className={`${playFair.className} header` }>Businesses</h2>
           <ul>
             {transactions.map((transaction, index) => (
               <li key={index}>
@@ -79,11 +79,11 @@ export function Card({
       <div className="card__content">
         <h4 className={`${playFair.className}`}>{businessName}</h4>
         <div className="descriptions">
-          <p className="card__description">{date}</p>
-          <p className="card__description">{businessType}</p>
+          <p className="card__description">Created: {date}</p>
+          {/* <p className="card__description">ngano d ka mogana {businessType}</p> */}
           <p className="card__description">{businessDescription}</p>
-          <p className="card__description">{businessOwner}</p>
-          <p className="card__description">{location}</p>
+          <p className="card__description">Owned By: {businessOwner}</p>
+          <p className="card__description">Location: {location}</p>
           <a
             href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}
             target="_blank"

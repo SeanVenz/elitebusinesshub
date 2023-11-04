@@ -17,6 +17,7 @@ function Navbar({
   const [error, setError] = useState("");
   const [balance, setBalance] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -24,6 +25,7 @@ function Navbar({
 
   const connectAndGetBalance = async () => {
     try {
+      setIsLoading(true);
       const { solana } = window as any;
       const response = await solana.connect();
       const walletString = response.publicKey.toString();
@@ -32,6 +34,7 @@ function Navbar({
       onWalletConnect(walletString);
       await setWallet(walletString);
       setBalance(balanceResult);
+      setIsLoading(false);
     } catch (error) {
       setError("No wallet");
     }
@@ -40,16 +43,17 @@ function Navbar({
   return (
     <>
       <div className={style.toolbar}>
-        <h1 className={`${playFair.className} ${style.brand}`}>
-          Elite Business Hub
-        </h1>
-        {wallet && <h4>SOL: {balance.toFixed(2)}</h4>}
+        <div className={style.links_container}>
+          <h1 className={`${playFair.className} ${style.brand}`}>
+            Elite Business Hub
+          </h1>
+        </div>
+        {wallet && <h4 className={`${playFair.className} ${style.brand}`}>SOL: {balance.toFixed(2)}</h4>}
 
-        <div className={style.links_container}></div>
         {error && <p>{error}</p>}
         <div className={style.links_container}>
           <a
-            className={style.view_transactions}
+            className={style.view_transactions }
             href="https://explorer.solana.com/address/G3QrQ1JmrFhRDZyruxp84HH1WWjAmp74PFkFGWSjSYpU?cluster=devnet"
             target="_blank"
           >
@@ -58,7 +62,13 @@ function Navbar({
           <MainButton
             disabled={wallet !== null}
             onClick={connectAndGetBalance}
-            text={wallet ? parseString(wallet, 3) : "Connect Wallet"}
+            text={
+              isLoading
+                ? "Connecting..."
+                : wallet
+                ? parseString(wallet, 3)
+                : "Connect Wallet"
+            }
           ></MainButton>
           {wallet && (
             <MainButton

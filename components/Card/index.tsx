@@ -24,7 +24,7 @@ function Cards({ wallet }: { wallet: string | null }) {
     <>
       {transactions.length > 0 && (
         <div className="transaction-parent">
-          <h2 className={`${playFair.className} header` }>Businesses</h2>
+          <h2 className={`${playFair.className} header`}>Businesses</h2>
           <ul>
             {transactions.map((transaction, index) => (
               <li key={index}>
@@ -32,11 +32,20 @@ function Cards({ wallet }: { wallet: string | null }) {
                   imageUrl={formatMessage(decodeMessage(transaction)).imageUrl}
                   signature={decodeSignature(transaction.transaction.signature)}
                   date={formatDate(transaction.blockTime)}
-                  businessType={formatMessage(decodeMessage(transaction)).businessType}
-                  businessName={formatMessage(decodeMessage(transaction)).businessName}
-                  businessDescription= {formatMessage(decodeMessage(transaction)).businessDescription}
-                  businessOwner= {formatMessage(decodeMessage(transaction)).businessOwner}
-                  location = {formatMessage(decodeMessage(transaction)).location}
+                  businessType={
+                    formatMessage(decodeMessage(transaction)).businessType
+                  }
+                  businessName={
+                    formatMessage(decodeMessage(transaction)).businessName
+                  }
+                  businessDescription={
+                    formatMessage(decodeMessage(transaction))
+                      .businessDescription
+                  }
+                  businessOwner={
+                    formatMessage(decodeMessage(transaction)).businessOwner
+                  }
+                  location={formatMessage(decodeMessage(transaction)).location}
                 />
               </li>
             ))}
@@ -57,7 +66,7 @@ export function Card({
   businessName,
   businessDescription,
   businessOwner,
-  location
+  location,
 }: {
   imageUrl: any;
   signature: any;
@@ -79,17 +88,24 @@ export function Card({
       <div className="card__content">
         <h4 className={`${playFair.className}`}>{businessName}</h4>
         <div className="descriptions">
-          <p className="card__description">Created: {date}</p>
-          {/* <p className="card__description">ngano d ka mogana {businessType}</p> */}
-          <p className="card__description">{businessDescription}</p>
+          {/* <p className="card__description">Created: {date}</p> */}
+          <h5 className="card__description">Business Type: {businessType}</h5>
+          <p className="card__description">Description: {businessDescription}</p>
           <p className="card__description">Owned By: {businessOwner}</p>
-          <p className="card__description">Location: {location}</p>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${location}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card__description"
+          >
+            Location: {location}
+          </a>
           <a
             href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}
             target="_blank"
             className="card__description"
           >
-            {parseString(signature, 12)}
+            Transaction: {parseString(signature, 12)}
           </a>
         </div>
       </div>

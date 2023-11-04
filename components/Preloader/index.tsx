@@ -25,7 +25,9 @@ const ImagePreloader: React.FC<ImagePreloaderProps> = ({
   }, [src]);
 
   return loaded ? (
+    <div className="img">
     <img src={src} alt={alt} width={width} height={height} />
+    </div>
   ) : (
     <div>
       <Loader />

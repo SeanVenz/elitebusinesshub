@@ -29,11 +29,14 @@ function Cards({ wallet }: { wallet: string | null }) {
             {transactions.map((transaction, index) => (
               <li key={index}>
                 <Card
-                  imgLink={formatMessage(decodeMessage(transaction)).field3}
+                  imageUrl={formatMessage(decodeMessage(transaction)).imageUrl}
                   signature={decodeSignature(transaction.transaction.signature)}
                   date={formatDate(transaction.blockTime)}
-                  messageOne={formatMessage(decodeMessage(transaction)).field1}
-                  messageTwo={formatMessage(decodeMessage(transaction)).field2}
+                  businessType={formatMessage(decodeMessage(transaction)).businessType}
+                  businessName={formatMessage(decodeMessage(transaction)).businessName}
+                  businessDescription= {formatMessage(decodeMessage(transaction)).businessDescription}
+                  businessOwner= {formatMessage(decodeMessage(transaction)).businessOwner}
+                  location = {formatMessage(decodeMessage(transaction)).location}
                 />
               </li>
             ))}
@@ -47,31 +50,40 @@ function Cards({ wallet }: { wallet: string | null }) {
 export default Cards;
 
 export function Card({
-  imgLink,
+  imageUrl,
   signature,
   date,
-  messageOne,
-  messageTwo,
+  businessType,
+  businessName,
+  businessDescription,
+  businessOwner,
+  location
 }: {
-  imgLink: any;
+  imageUrl: any;
   signature: any;
   date: any;
-  messageOne: string;
-  messageTwo: string;
+  businessType: string;
+  businessName: string;
+  businessDescription: string;
+  businessOwner: string;
+  location: string;
 }) {
   return (
     <div className="card">
       <ImagePreloader
-        src={imgLink}
-        alt={messageOne || "Business Default"}
+        src={imageUrl}
+        alt={businessName || "Business Default"}
         width={500}
         height={400}
       />
       <div className="card__content">
-        <h4 className={`${playFair.className}`}>{messageOne}</h4>
+        <h4 className={`${playFair.className}`}>{businessName}</h4>
         <div className="descriptions">
           <p className="card__description">{date}</p>
-          <p className="card__description">{messageTwo}</p>
+          <p className="card__description">{businessType}</p>
+          <p className="card__description">{businessDescription}</p>
+          <p className="card__description">{businessOwner}</p>
+          <p className="card__description">{location}</p>
           <a
             href={`https://explorer.solana.com/tx/${signature}?cluster=devnet`}
             target="_blank"

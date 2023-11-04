@@ -20,20 +20,22 @@ export const getBalance = async (wallet: any) => {
   }
 };
 
-export const sendTransaction = async (e: any, wallet: any, image: any, businessName : string, businessDescription: string) => {
+export const sendTransaction = async (e: any, wallet: any, image: any, businessType: any, businessName : string, businessDescription: string, businessOwner: string, location: string) => {
   e.preventDefault();
   try {
     if (wallet) {
-
       if(image){
         const storageRef = ref(storage, `solana-images/${image.name}`)
         await uploadBytes(storageRef, image);
         const imageUrl = await getDownloadURL(storageRef);
 
         const message = {
-          field1: businessName,
-          field2: businessDescription,
-          field3: imageUrl,
+          businessType,
+          businessName,
+          businessDescription,
+          imageUrl,
+          businessOwner,
+          location
         };
         const messageBuffer = Buffer.from(JSON.stringify(message), "utf-8");
         const connection = new Web3.Connection(Web3.clusterApiUrl("devnet"));

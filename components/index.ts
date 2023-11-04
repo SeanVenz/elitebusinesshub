@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import Button from "./Button";
 import Cards from './Card'
+import { MainButton } from "./Button";
 
-export { Button, Navbar, Cards };
+export { MainButton, Navbar, Cards };

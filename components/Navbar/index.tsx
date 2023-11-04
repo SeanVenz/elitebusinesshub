@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import style from "./style.module.css";
-import { Button } from "@/components";
+import { MainButton } from "@/components";
 import { useState } from "react";
 import { parseString } from "@/app/lib/utils";
 import { getBalance } from "@/app/lib/actions";
 import BusinessModal from "../Form";
+import { playFair } from "@/app/lib/fonts";
+import { ButtonSkeleton } from "../Button";
 
 function Navbar({
   onWalletConnect,
@@ -40,7 +42,10 @@ function Navbar({
   return (
     <>
       <div className={style.toolbar}>
-        <h4>SOL: {balance.toFixed(2)}</h4>
+        <h1 className={`${playFair.className} ${style.brand}`}>
+          Elite Business Hub
+        </h1>
+        {wallet && <h4>SOL: {balance.toFixed(2)}</h4>}
 
         <div className={style.links_container}></div>
         {error && <p>{error}</p>}
@@ -52,10 +57,17 @@ function Navbar({
           >
             View Transactions
           </a>
-          <Button disabled={wallet !== null} onClick={connectAndGetBalance} text = {wallet ? parseString(wallet, 3) : "Connect Wallet"}>
-            
-          </Button>
-          <Button onClick={openModal} text = {"Add My Business"}></Button>
+          <MainButton
+            disabled={wallet !== null}
+            onClick={connectAndGetBalance}
+            text={wallet ? parseString(wallet, 3) : "Connect Wallet"}
+          ></MainButton>
+          {wallet && (
+            <MainButton
+              onClick={openModal}
+              text={"Add My Business"}  
+            ></MainButton>
+          )}
         </div>
       </div>
       <div className={style.divider}></div>
@@ -64,7 +76,7 @@ function Navbar({
           <BusinessModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            wallet = {wallet}
+            wallet={wallet}
           />
         )}
       </div>

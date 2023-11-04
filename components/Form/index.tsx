@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import "./index.scss";
-import { Button } from "..";
+import { MainButton } from "..";
 import { sendTransaction } from "@/app/lib/actions";
 
 function BusinessModal({
@@ -64,7 +64,7 @@ function BusinessModal({
           </form>
         </div>
         <div className="buttons">
-          <Button onClick={onClose}>Close</Button>
+          <MainButton onClick={onClose}>Close</MainButton>
         </div>
       </div>
     </div>

@@ -17,7 +17,6 @@ import { playFair } from "@/app/lib/fonts";
 function Cards({ wallet }: { wallet: string | null }) {
   const { transactions, error, isLoading } = useTransactions(wallet);
 
-  // You can conditionally render a loading state if needed
   if (isLoading) {
     return <CardSkeleton />;
   }
@@ -32,9 +31,7 @@ function Cards({ wallet }: { wallet: string | null }) {
               <li key={index}>
                 <Card
                   imgLink={formatMessage(decodeMessage(transaction)).field3}
-                  signature={decodeSignature(
-                    transaction.transaction.signature
-                  )}
+                  signature={decodeSignature(transaction.transaction.signature)}
                   date={formatDate(transaction.blockTime)}
                   messageOne={formatMessage(decodeMessage(transaction)).field1}
                   messageTwo={formatMessage(decodeMessage(transaction)).field2}
@@ -96,11 +93,15 @@ export function Card({
 export function CardSkeleton() {
   return (
     <div className="card-skeleton-container">
-      <div className="card-skeleton">
-        <div className="card-skeleton-header"></div>
-        <div className="card-skeleton-content"></div>
-        <div className="card-skeleton-header"></div>
-      </div>
+      {Array(6)
+        .fill(null)
+        .map((_, index) => (
+          <div className="card-skeleton" key={index}>
+            <div className="card-skeleton-header"></div>
+            <div className="card-skeleton-content"></div>
+            <div className="card-skeleton-header"></div>
+          </div>
+        ))}
     </div>
   );
 }

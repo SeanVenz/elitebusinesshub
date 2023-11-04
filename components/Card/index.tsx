@@ -18,9 +18,9 @@ function Cards({ wallet }: { wallet: string | null }) {
   if (wallet) {
     const { transactions, error, isLoading } = useTransactions(wallet);
 
-    if (isLoading) {
-      return <CardSkeleton />;
-    }
+    // if (isLoading) {
+    //   return <CardSkeleton />;
+    // }
 
     return (
       <>
